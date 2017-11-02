@@ -25,7 +25,7 @@ class TodoList extends Component {
     this.inputEl.value = ''; // <- clear the input
   }
 
-  deleteAll(key){
+  deleteMessage(key){
     fire.database().ref('messages').remove(key);
   }
   render() {
@@ -48,7 +48,7 @@ class TodoList extends Component {
       </form>
     </div>
       <TodoItems  entries={this.state.messages}
-               delete={this.deleteItem}/>
+               delete={this.deleteMessage}/>
   </div>
     );
     }
