@@ -25,9 +25,8 @@ class TodoList extends Component {
     this.inputEl.value = ''; // <- clear the input
   }
 
-  deleteMessage(key){
+  deleteAll(key){
     fire.database().ref('messages').remove(key);
-    this.inputEl.value = ''; // <- clear the input
   }
   render() {
     return (
@@ -37,15 +36,14 @@ class TodoList extends Component {
           <h6>It is {new Date().toLocaleTimeString()}.</h6>
       <form onSubmit={this.addMessage.bind(this)}>
         <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input className="mdl-textfield__input" type="text" ref={ el => this.inputEl = el }/>
+          <input className="mdl-textfield__input" type="text" ref={ el => this.inputEl = el } required/>
           <label className="mdl-textfield__label" >Work Work...</label>
         </div>
-          <button className="" type="submit"><i className="material-icons">add</i></button>
+          <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" type="submit"><i className="material-icons">add</i></button>
         <ul>
-          <TodoItems entries={ /* Render the list of messages */
-                      this.state.messages
-                      }
-                      delete={this.deleteMessage}/>
+          { /* Render the list of messages */
+            this.state.messages.map( message => <li key={message.id}>{message.text}</li> )
+          }
         </ul>
       </form>
         </div>
