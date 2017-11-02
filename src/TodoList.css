@@ -1,11 +1,11 @@
-.App .header input {
+.todoListMain .header input {
   padding: 10px;
   font-size: 16px;
   /*border: 2px solid #FFF;*/
   width: 165px;
 }
 
-.App .header button {
+.todoListMain .header button {
   padding: 10px;
   font-size: 16px;
   margin: 10px;
@@ -14,18 +14,18 @@
   color: #FFF;
   border: 2px solid #0066FF;
 }
-.App .header button:hover {
+.todoListMain .header button:hover {
   background-color: #003399;
   border: 2px solid #003399;
   cursor: pointer;
 }
-.App .theList {
+.todoListMain .theList {
   list-style: none;
   padding-left: 0;
   width: 250px;
 }
 
-.App .theList li {
+.todoListMain .theList li {
   color: #333;
   background-color: rgba(255,255,255,.5);
   padding: 15px;
@@ -35,7 +35,7 @@
   transition: background-color .2s ease-out;
 }
 
-.App .theList li:hover {
+.todoListMain .theList li:hover {
   background-color: pink;
   cursor: pointer;
 }
