@@ -46,8 +46,10 @@ class TodoList extends Component {
           }
         </ul>
       </form>
-        </div>
     </div>
+      <TodoItems  entries={this.state.messages}
+               delete={this.deleteItem}/>
+  </div>
     );
     }
     }
