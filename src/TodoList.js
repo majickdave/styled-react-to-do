@@ -22,7 +22,7 @@ class TodoList extends Component {
       this.setState({ messages: [message].concat(this.state.messages) });
     })
   }
-  addMessage(e){
+  addItem(e){
     e.preventDefault(); // <- prevent form submit from reloading the page
     /* Send the message to Firebase */
     this.setState({textInput: this.inputEl.value});
@@ -42,9 +42,12 @@ class TodoList extends Component {
     console.log("message selected");
   }
 
-  deleteMessage(key){
-    console.log(key);
-    fire.database().ref('messages').remove(key);
+  deleteItem(item){
+    console.log(item);
+    var items = this.state.messages;
+    const result = items.filter(msg => item !== msg.id);
+    this.setState({messages: result});
+
   }
   render() {
     return (
@@ -52,7 +55,7 @@ class TodoList extends Component {
         <div className="header">
           <h1>Dave's Notes</h1>
           <h6>Implement Clock.</h6>
-      <form onSubmit={this.addMessage.bind(this)}>
+      <form onSubmit={this.addItem.bind(this)}>
         <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input onChange={e => this.textChanged()} className="mdl-textfield__input" type="text" ref={ el => this.inputEl = el } required/>
           <label className="mdl-textfield__label" >Work Work...</label>
@@ -61,7 +64,7 @@ class TodoList extends Component {
       </form>
     </div>
       <TodoItems  entries={this.state.messages}
-      delete={(e) => this.messagesSelected.bind(this)}/>
+      delete={(e) => this.deleteItem(e)}/>
   </div>
     );
     }
