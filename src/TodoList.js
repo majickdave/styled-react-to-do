@@ -7,7 +7,10 @@ import fire from './fire';
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [] }; // <- set up react state
+    this.state = {
+      messages: [],
+      textInput: ''
+     }; // <- set up react state
   }
   componentWillMount(){
     /* Create reference to messages in Firebase Database */
@@ -21,8 +24,14 @@ class TodoList extends Component {
   addMessage(e){
     e.preventDefault(); // <- prevent form submit from reloading the page
     /* Send the message to Firebase */
+
     fire.database().ref('messages').push( this.inputEl.value );
     this.inputEl.value = ''; // <- clear the input
+  }
+
+  textChanged(e) {
+    this.setState({textInput: this.inputEl.value})
+    console.log(this.state.textInput);
   }
 
   deleteMessage(key){
@@ -33,22 +42,17 @@ class TodoList extends Component {
       <div className="todoListMain">
         <div className="header">
           <h1>Dave's Notes</h1>
-          <h6>It is {new Date().toLocaleTimeString()}.</h6>
+          <h6>Implement Clock.</h6>
       <form onSubmit={this.addMessage.bind(this)}>
         <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input className="mdl-textfield__input" type="text" ref={ el => this.inputEl = el } required/>
+          <input onChange={e => this.textChanged()} className="mdl-textfield__input" type="text" ref={ el => this.inputEl = el } required/>
           <label className="mdl-textfield__label" >Work Work...</label>
         </div>
           <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" type="submit"><i className="material-icons">add</i></button>
-        <ul>
-          { /* Render the list of messages */
-            this.state.messages.map( message => <li key={message.id}>{message.text}</li> )
-          }
-        </ul>
       </form>
     </div>
       <TodoItems  entries={this.state.messages}
-               delete={this.deleteMessage}/>
+               delete={this.deleteMessage()}/>
   </div>
     );
     }

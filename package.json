@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dotenv": "^4.0.0",
     "firebase": "^4.6.0",
-    "react": "^16.0.0",
+    "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.0.0",
     "react-flip-move": "^2.9.17",
