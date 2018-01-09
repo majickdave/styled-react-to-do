@@ -9,8 +9,7 @@ class TodoList extends Component {
     super(props);
     this.state = {
       messages: [],
-      textInput: '',
-      deleteMessageId: ''
+      textInput: ''
      }; // <- set up react state
   }
   componentWillMount(){
@@ -18,36 +17,34 @@ class TodoList extends Component {
     let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
     messagesRef.on('child_added', snapshot => {
       /* Update React state when message is added at Firebase Database */
-      let message = { text: snapshot.val(), id: snapshot.key };
+      let message = {text: snapshot.val(), id: snapshot.key };
       this.setState({ messages: [message].concat(this.state.messages) });
     })
   }
+
   addItem(e){
     e.preventDefault(); // <- prevent form submit from reloading the page
     /* Send the message to Firebase */
-    this.setState({textInput: this.inputEl.value});
+    // const items = this.state.messages;
+    // items.push(this.state.textInput);
+    // this.setState({messages: items });
     fire.database().ref('messages').push( this.state.textInput );
-
     this.setState({textInput: ''});
     this.inputEl.value = ''; // <- clear the input
   }
 
   textChanged() {
     this.setState({textInput: this.inputEl.value})
-
-  }
-
-  messagesSelected() {
-    this.setState({deleteMessageId: this.state.messages})
-    console.log("message selected");
   }
 
   deleteItem(item){
-    console.log(item);
-    var items = this.state.messages;
+
+    const items = this.state.messages;
     const result = items.filter(msg => item !== msg.id);
     this.setState({messages: result});
-
+    console.log(item);
+    // *** TODO ***///
+    // fire.database().ref('messages').set(this.state.messages);
   }
   render() {
     return (
