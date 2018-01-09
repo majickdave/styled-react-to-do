@@ -9,13 +9,14 @@ class TodoItems extends React.Component {
     this.delete = this.delete.bind(this);
   }
 
-  delete(key) {
+  delete(key, e) {
+    e.preventDefault();
     this.props.delete(key);
   }
 
   createTasks(message) {
-    return <li onClick={(e) => this.delete(message.key, e)}
-                key={message.key}>{message.text}</li>
+    return <li onClick={(e) => this.delete(message.id, e)}
+                key={message.id}>{message.text}</li>
   }
 
   render() {

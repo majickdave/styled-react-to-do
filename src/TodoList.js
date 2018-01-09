@@ -9,7 +9,8 @@ class TodoList extends Component {
     super(props);
     this.state = {
       messages: [],
-      textInput: ''
+      textInput: '',
+      deleteMessageId: ''
      }; // <- set up react state
   }
   componentWillMount(){
@@ -24,17 +25,25 @@ class TodoList extends Component {
   addMessage(e){
     e.preventDefault(); // <- prevent form submit from reloading the page
     /* Send the message to Firebase */
+    this.setState({textInput: this.inputEl.value});
+    fire.database().ref('messages').push( this.state.textInput );
 
-    fire.database().ref('messages').push( this.inputEl.value );
+    this.setState({textInput: ''});
     this.inputEl.value = ''; // <- clear the input
   }
 
-  textChanged(e) {
+  textChanged() {
     this.setState({textInput: this.inputEl.value})
-    console.log(this.state.textInput);
+
+  }
+
+  messagesSelected() {
+    this.setState({deleteMessageId: this.state.messages})
+    console.log("message selected");
   }
 
   deleteMessage(key){
+    console.log(key);
     fire.database().ref('messages').remove(key);
   }
   render() {
@@ -52,7 +61,7 @@ class TodoList extends Component {
       </form>
     </div>
       <TodoItems  entries={this.state.messages}
-               delete={this.deleteMessage()}/>
+      delete={(e) => this.messagesSelected.bind(this)}/>
   </div>
     );
     }
