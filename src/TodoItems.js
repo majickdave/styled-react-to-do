@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FlipMove from 'react-flip-move';
 
-class TodoItems extends React.Component {
+class TodoItems extends Component {
   constructor(props, context) {
     super(props, context);
 

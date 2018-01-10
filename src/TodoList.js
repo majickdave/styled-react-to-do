@@ -44,7 +44,12 @@ class TodoList extends Component {
     this.setState({messages: result});
     console.log(item);
     // *** TODO ***///
-    // fire.database().ref('messages').set(this.state.messages);
+    const messages = {};
+    this.state.messages.map(function(msg){
+      messages[msg.id] = msg.text;
+    });
+    console.log(fire.database().ref('messages'));
+    fire.database().ref().set({messages: messages});
   }
   render() {
     return (
